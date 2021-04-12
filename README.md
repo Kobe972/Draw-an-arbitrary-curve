@@ -15,7 +15,7 @@ For example,this program draws a curve:
 
 can fit x and y into a curve similar to y=x².
 
-## 
+## Principle
 curve.py uses a neural network with the active function sigmoid(x)=1/(1+exp(-x)) to fit the curve.The network has two latent layers,with dimensions of 10 and 5 respectively.The plot redraws after every 50 iterations.
 
 Writing a report is deadly boring.However,a great method can add fun and make use of your time.

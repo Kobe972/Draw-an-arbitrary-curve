@@ -1,10 +1,14 @@
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
-def curve(data1,data2,x_label='x',y_label='y',title='Untitled'):
-    l=min(data1)
-    r=max(data1)
-    x_data = np.linspace(l, r, min(int(150*(r-l)),1000), dtype=np.float32)[:, np.newaxis]
+def curve(data1,data2,x_label='x',y_label='y',title=''):
+    minimum1=data1.min()
+    minimum2=data2.min()
+    span1=data1.max()-data1.min()
+    span2=data2.max()-data2.min()
+    data1=(data1-minimum1)/span1
+    data2=(data2-minimum2)/span2
+    x_data = np.linspace(0, 1, 1000, dtype=np.float32)[:, np.newaxis]
     x = np.array(data1)[:, np.newaxis]
     y_data = np.array(data2)[:, np.newaxis]
     xs = tf.placeholder(tf.float32, [None, 1])
@@ -32,14 +36,15 @@ def curve(data1,data2,x_label='x',y_label='y',title='Untitled'):
         sess.run(init)
         # 绘制原始x-y散点图。
         fig = plt.figure()
-        plt.ylim(min(data2)-(max(data2)-min(data2))/15,max(data2)+(max(data2)-min(data2))/15)
+        plt.xlim(minimum1-0.03*span1,minimum1+span1+0.03*span1)
+        plt.ylim(minimum2-0.03*span2,minimum2+span2+0.03*span2)
         plt.rcParams['font.sans-serif'] = ['SimHei']
         plt.rcParams['axes.unicode_minus'] = False
         plt.xlabel(x_label)
         plt.ylabel(y_label)
         plt.title(title, fontsize=24)
         ax = fig.add_subplot(1, 1, 1)
-        ax.scatter(x, y_data)
+        ax.scatter(x*span1+minimum1, y_data*span2+minimum2)
         plt.ion()
         plt.show()
         # 迭代次数 = 10000
@@ -55,8 +60,9 @@ def curve(data1,data2,x_label='x',y_label='y',title='Untitled'):
                     pass
                 prediction_value = sess.run(prediction, feed_dict={xs: x_data})
                 # 绘制模型预测值。
-                lines = ax.plot(x_data, prediction_value, 'r-', lw=3)
+                lines = ax.plot(x_data*span1+minimum1, prediction_value*span2+minimum2, 'r-', lw=3)
                 plt.pause(1)
                 # 打印损失
                 print(sess.run(loss, feed_dict={xs: x, ys: y_data}))
+
 

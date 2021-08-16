@@ -64,5 +64,3 @@ def curve(data1,data2,x_label='x',y_label='y',title=''):
                 plt.pause(1)
                 # 打印损失
                 print(sess.run(loss, feed_dict={xs: x, ys: y_data}))
-
-

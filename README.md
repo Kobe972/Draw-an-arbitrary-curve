@@ -7,11 +7,13 @@ draw.exe(temporarily put on http://home.ustc.edu.cn/~xuyichang/share/phys/draw.e
 ## Usage
 In order to use this program flexibly,you can import curve.py in your own program.Function curve(data1,data2,x_label='x',y_label='y',title='Untitled') can draw the curve,and show the value of loss function in IDLE.data1 is array of the variables on x-axis,and data2 is that on y_axis.Other 3 parameters are easy to understand.
 
-For example,this program draws a curve:  
-`import curve`  
-`x=[1,2,3,4,5]`  
-`y=[1,4,9.1,16,25]`  
-`curve(x,y)`
+For example,this program draws a curve:
+```python
+import curve
+x=[1,2,3,4,5] 
+y=[1,4,9.1,16,25]
+curve(x,y)
+```
 
 can fit x and y into a curve similar to y=x².
 
